@@ -1,0 +1,6 @@
+@tl2_tp5_2024_alvarof260_HostAddress = http://localhost:5004
+
+GET {{tl2_tp5_2024_alvarof260_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
