@@ -52,7 +52,7 @@ public class PresupuestoRepository : IPresupuestoRepository
     {
         Presupuesto presupuesto = null;
         string query = @"SELECT idPresupuesto, NombreDestinatario 
-                         FROM Productos 
+                         FROM Presupuestos 
                          WHERE idPresupuesto = @id";
 
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
@@ -79,8 +79,8 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public void Create(Presupuesto presupuesto)
     {
-        string query = @"INSERT INTO Presupuestos (NombreDestinatario) 
-                         VALUES (@NombreDestinatario);";
+        string query = @"INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) 
+                     VALUES (@NombreDestinatario, @FechaCreacion);";
 
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
         {
@@ -88,6 +88,8 @@ public class PresupuestoRepository : IPresupuestoRepository
 
             SqliteCommand command = new SqliteCommand(query, connection);
             command.Parameters.Add(new SqliteParameter("@NombreDestinatario", presupuesto.NombreDestinario));
+            command.Parameters.Add(new SqliteParameter("@FechaCreacion", "2024-10-27"));
+
             command.ExecuteNonQuery();
 
             connection.Close();
@@ -96,8 +98,8 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public void Update(int id, Producto producto, int cantidad)
     {
-        string query = @"INSERT INTO PresupuestoDetalles (idPresupuesto, idProducto, Cantidad)
-                         VALUES (@idPresupuesto, @idProducto, @Candidad);";
+        string query = @"INSERT INTO PresupuestosDetalle (idPresupuesto, idProducto, Cantidad)
+                         VALUES (@idPresupuesto, @idProducto, @Cantidad);";
 
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
         {
@@ -136,9 +138,9 @@ public class PresupuestoRepository : IPresupuestoRepository
     {
         List<PresupuestoDetalle> presupuestosDetalles = new List<PresupuestoDetalle>();
         string query = @"SELECT p.idProducto, p.Descripcion, p.Precio, d.Cantidad
-                         FROM PresupuestosDetalle d
-                         JOIN Productos P ON d.idProducto = p.idProducto
-                         WHERE d.idProducto = @idProducto;";
+                     FROM PresupuestosDetalle d
+                     JOIN Productos p ON d.idProducto = p.idProducto
+                     WHERE d.idPresupuesto = @idPresupuesto;";
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
         {
             connection.Open();

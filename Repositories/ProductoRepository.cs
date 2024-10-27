@@ -46,7 +46,7 @@ public class ProductoRepository : IProductoRepository
 
     public Producto GetById(int id)
     {
-        Producto producto = null;
+        Producto producto = new Producto();
         string query = @"SELECT * FROM Productos WHERE idProducto = @id;";
 
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))

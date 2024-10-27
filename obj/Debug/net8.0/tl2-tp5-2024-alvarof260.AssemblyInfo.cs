@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tl2-tp5-2024-alvarof260")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d80ff93974b709238c5728ed30a51fefa161a0c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf8e88355fd3a89df5213cc4c94a71de02931740")]
 [assembly: System.Reflection.AssemblyProductAttribute("tl2-tp5-2024-alvarof260")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tl2-tp5-2024-alvarof260")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
