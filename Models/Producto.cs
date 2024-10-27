@@ -14,4 +14,9 @@ public class Producto
         this.Descripcion = descripcion;
         this.Precio = precio;
     }
+
+    public Producto()
+    {
+
+    }
 }
