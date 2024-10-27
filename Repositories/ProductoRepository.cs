@@ -4,7 +4,7 @@ public interface IProductoRepository
 {
     List<Producto> GetAll();
     Producto GetById(int id);
-    void Add(Producto producto);
+    void Create(Producto producto);
     void Update(int id, Producto producto);
     void Delete(int id);
 }
@@ -25,8 +25,8 @@ public class ProductoRepository : IProductoRepository
 
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
         {
-            SqliteCommand command = new SqliteCommand(query, connection);
             connection.Open();
+            SqliteCommand command = new SqliteCommand(query, connection);
             using (SqliteDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
@@ -51,9 +51,9 @@ public class ProductoRepository : IProductoRepository
 
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
         {
+            connection.Open();
             SqliteCommand command = new SqliteCommand(query, connection);
             command.Parameters.Add(new SqliteParameter("@id", id));
-            connection.Open();
             using (SqliteDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
@@ -68,14 +68,14 @@ public class ProductoRepository : IProductoRepository
         return producto;
     }
 
-    public void Add(Producto producto)
+    public void Create(Producto producto)
     {
         string query = @"INSERT INTO Productos (Descripcion, Precio) VALUES (@Descripcion, @Precio);";
 
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
         {
-            SqliteCommand command = new SqliteCommand(query, connection);
             connection.Open();
+            SqliteCommand command = new SqliteCommand(query, connection);
 
             command.Parameters.Add(new SqliteParameter("@Descripcion", producto.Descripcion));
             command.Parameters.Add(new SqliteParameter("@Precio", producto.Precio));
@@ -107,10 +107,12 @@ public class ProductoRepository : IProductoRepository
         string query = @"DELETE FROM Productos WHERE idProducto = @id;";
         using (SqliteConnection connection = new SqliteConnection(_stringConnection))
         {
+            connection.Open();
+
             SqliteCommand command = new SqliteCommand(query, connection);
             command.Parameters.Add(new SqliteParameter("@id", id));
-            connection.Open();
             command.ExecuteNonQuery();
+
             connection.Close();
         }
     }
